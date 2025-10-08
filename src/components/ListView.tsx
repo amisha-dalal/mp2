@@ -1,53 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { _get } from "../api/artic";
-
-
-//used this for reference: https://www.geeksforgeeks.org/reactjs/axios-in-react-a-guide-for-beginners/
-
-
-interface ArtworkData {
-   id: number;
-   title: string;
-   image_id: string;
-   artist_title: string;
-}
+import { useState } from "react";
+import { useArtworks } from "../hooks/useArtworks"; 
+import {Link } from "react-router-dom";
 
 
 const ListView = () => {
-   const [data, setData] = useState<ArtworkData[]>([]);
-   const [loading, setLoading] = useState(true);
+   const {data, loading, setData} = useArtworks();
    const [sortKey, setSortKey] = useState<"title" | "artist_title">("title");
    const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
    const [searchInput, setSearchInput] = useState("");
 
-
-   useEffect(() => {
-       const fetchData = async () => {
-           try {
-               const response = await _get("/artworks?limit=60");
-               const artworkWithAllData = response.data.data.filter(
-                   (item: ArtworkData) => item.image_id && item.title !== "Untitled" && item.artist_title
-               );
-               const sortedData = [...artworkWithAllData].sort((a, b) =>
-                   a.title.localeCompare(b.title)
-               );
-               setData(sortedData);
-           } catch (error) {
-               console.error("Error fetching data: ", error);
-           } finally {
-               setLoading(false);
-           }
-       };
-       fetchData();
-   }, []);
-
-
-  
-
-
    if (loading) return <div>Loading...</div>;
 
-
+   //sortBy function will be called when drop downs get changed, sort data accordingly
    function sortBy(sortKey: "title" | "artist_title", sortDirection: "asc" | "desc") {
        setSortKey(sortKey);
        setSortDirection(sortDirection);
@@ -61,13 +25,16 @@ const ListView = () => {
        setData(sortedData);
    }
 
-
+   //need to account for if the value was null, can't apply lower case otherwise
+   const matchesSearch = (value: string | null) => (value || "").toLowerCase().includes(searchInput.toLowerCase());
+   
+   //display data that matches based on search input with title, artist title, origin, medium,
    const searchFilteredData = data.filter((item) =>
-       item.title.toLowerCase().includes(searchInput.toLowerCase()) ||
-       item.artist_title.toLowerCase().includes(searchInput.toLowerCase())
+        matchesSearch(item.title) || matchesSearch(item.artist_title) ||
+        matchesSearch(item.place_of_origin) || matchesSearch(item.medium_display)
    );
 
-
+   //search bar, sort by drop down, order drop down, and list of artwork items
    return (
        <div>
            <h1>Artwork List</h1>
@@ -97,10 +64,12 @@ const ListView = () => {
            <ul>
                {searchFilteredData.map(item => (
                    <li key={item.id} className="list_item">
-                       <img
+                    <Link to={`/artwork/${item.id}`}>
+                        <img
                        src={`https://www.artic.edu/iiif/2/${item.image_id}/full/200,/0/default.jpg`}
                        alt={item.title}
                        />
+                    </Link>
                        <p>Title: {item.title}</p>
                        <p>Artist title: {item.artist_title}</p>
                    </li>
