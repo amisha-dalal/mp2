@@ -49,6 +49,10 @@ body {
   text-align: center;
 }
 
+.gridDisplay {
+  text-align: center;
+}
+
 .search-controls, .sort-controls {
   display: flex;
   justify-content: center;
@@ -56,10 +60,17 @@ body {
   gap: 1em;
 }
 
+.filter-controls {
+  display: flex;
+}
+
+
+
 .ListDisplay {
   display: flex;
   justify-content: center;
 }
+
 
 .ListDisplay ul{
   list-style: none;
@@ -86,3 +97,35 @@ body {
 .listItem p {
   margin: 0.2em 0;
 }
+
+.gridDisplay ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+}
+
+.gridItem {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gridItem img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5%;
+}
+
+.detailPage {
+  text-align: center;
+  padding: 3em;
+}
+
+.nav-buttons {
+  padding: 1em;
+}
+
+

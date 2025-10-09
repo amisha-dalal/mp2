@@ -39,12 +39,11 @@ const DetailsView = () => {
 
     //prev and next buttons, and then also display artwork image, title, and all other attributes
     return (
-        <div>
+        <div className="detailPage">
             <h1>Details of {artwork.title}</h1>
             <div className="nav-buttons">
                 <button onClick={() => navigate(`/artwork/${prevId}`)}>← Prev</button>
                 <button onClick={() => navigate(`/artwork/${nextId}`)}>Next →</button>
-
             </div>
             <div className="artwork-details">
                 <img

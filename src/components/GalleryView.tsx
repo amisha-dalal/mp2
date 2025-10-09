@@ -34,53 +34,51 @@ const GalleryView = () => {
 
     //drop downs for artist title, origin, medium, gallery and grid of artwork items
     return (
-       <div>
+       <div className="gridDisplay">
            <h1>Gallery View</h1>
            <div className="filter-controls">
-            <label>
-                Artist title
+            <div className="dropDownWhole">
+                <label> Artist title </label>
                 <select value={filters.artist_title} onChange={e => handleFilterChange("artist_title", e.target.value)}>
                     <option value="">Show All</option>
                     {uniqueArtistTitles.map(artist => (
-                        <option key={artist} value={artist}></option>
+                        <option className="dropDownEntry" key={artist} value={artist}>{artist}</option>
                     ))}
                 </select>
-            </label>
-            <label>
-                Place of Origin
+            </div>
+            <div className="dropDownWhole">
+                <label> Place of Origin </label>
                 <select value={filters.place_of_origin} onChange={e => handleFilterChange("place_of_origin", e.target.value)}>
                     <option value="">Show All</option>
                     {uniqueOrigins.map(origin => (
-                        <option key={origin} value={origin}></option>
+                        <option className="dropDownEntry" key={origin} value={origin}>{origin}</option>
                     ))}
                 </select>
-            </label>
-            <label>
-                Medium Display
+            </div>
+            <div className="dropDownWhole">
+                <label> Medium Display </label>
                 <select value={filters.medium_display} onChange={e => handleFilterChange("medium_display", e.target.value)}>
                     <option value="">Show All</option>
                     {uniqueMediums.map(medium => (
-                        <option key={medium} value={medium}></option>
+                        <option className="dropDownEntry" key={medium} value={medium}>{medium}</option>
                     ))}
                 </select>
-            </label>
+            </div>
            </div>
-           <ul>
+           <div className="galleryGrid">
+            <ul>
                {filteredData.map(item => (
-                   <li key={item.id} className="list_item">
+                   <li key={item.id} className="gridItem">
                     <Link to={`/artwork/${item.id}`}>
                     <img
                        src={`https://www.artic.edu/iiif/2/${item.image_id}/full/200,/0/default.jpg`}
                        alt={item.title}
                        />
                     </Link>
-                       <p>Title: {item.title}</p>
-                       <p>Artist title: {item.artist_title}</p>
-                       <p>Origin: {item.place_of_origin}</p>
-                       <p>Medium: {item.medium_display}</p>
                    </li>
                ))}
            </ul>
+           </div>
        </div>
    );
 };
