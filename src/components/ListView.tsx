@@ -36,14 +36,14 @@ const ListView = () => {
 
    //search bar, sort by drop down, order drop down, and list of artwork items
    return (
-       <div>
+       <div className="ListPage">
            <h1>Artwork List</h1>
            <div className="search-controls">
-               <label>Search for an artwork title or artist title</label>
+               <label>Search for an artwork title or artist title   </label>
                <input
                type="text"
                value={searchInput}
-               placeholder="Enter an artwork title or artist title"
+               placeholder="Enter artwork/artist title"
                onChange={(e) => setSearchInput(e.target.value)}
                />
            </div>
@@ -55,26 +55,30 @@ const ListView = () => {
                </select>
 
 
-               <label>Order: </label>
+               <label>  Order: </label>
                <select value={sortDirection} onChange={e => sortBy(sortKey, e.target.value as "asc" | "desc")}>
                    <option value="asc">Ascending</option>
                    <option value="desc">Descending</option>
                </select>
            </div>
-           <ul>
-               {searchFilteredData.map(item => (
-                   <li key={item.id} className="list_item">
-                    <Link to={`/artwork/${item.id}`}>
-                        <img
-                       src={`https://www.artic.edu/iiif/2/${item.image_id}/full/200,/0/default.jpg`}
-                       alt={item.title}
-                       />
-                    </Link>
-                       <p>Title: {item.title}</p>
-                       <p>Artist title: {item.artist_title}</p>
-                   </li>
-               ))}
-           </ul>
+           <div className="ListDisplay">
+                <ul>
+                {searchFilteredData.map(item => (
+                    <li key={item.id} className="listItem">
+                        <Link to={`/artwork/${item.id}`}>
+                            <img
+                        src={`https://www.artic.edu/iiif/2/${item.image_id}/full/200,/0/default.jpg`}
+                        alt={item.title}
+                        />
+                        </Link>
+                        <div className="listText">
+                            <p>Title: {item.title}</p>
+                            <p>Artist title: {item.artist_title}</p>
+                        </div>
+                    </li>
+                ))}
+                </ul>            
+            </div>
        </div>
    );
 };

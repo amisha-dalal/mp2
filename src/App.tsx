@@ -6,20 +6,26 @@ import { BrowserRouter as Router,
 import ListView from "./components/ListView";
 import GalleryView from "./components/GalleryView";
 import DetailsView from "./components/DetailsView";
+import "./App.css"
 
 
 function Home() {
  return <div className="homePage">
-     <h1>Home Page</h1>
-     <p>Click on links to see the list view, gallery view, and details view</p>
-   </div>;
+  <div className="homeContent">
+    <h1>MP 2</h1>
+    <p>Welcome to my MP2! I used the Art Institute of Chicago API. 
+    Click on links in the nav bar to see the list view and gallery view.
+    If you click on an image, it will open the details view for that artwork.
+    Additionally, you can navigate to previous and next artworks from a details view.</p>
+  </div>
+  </div>;
 }
 
 function App() {
  return (
    <Router basename="/mp2">
      <div>
-       <nav>
+       <nav className="navbar">
          <Link to="/">Home</Link>
          <Link to="/list-view">List View</Link>
          <Link to="/gallery-view">Gallery View</Link>
