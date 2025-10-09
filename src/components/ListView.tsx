@@ -72,8 +72,18 @@ const ListView = () => {
                         />
                         </Link>
                         <div className="listText">
-                            <p>Title: {item.title}</p>
-                            <p>Artist title: {item.artist_title}</p>
+                            {sortKey === "title" ? (
+                                <> 
+                                    <p>Title: {item.title}</p>
+                                    <p>Artist title: {item.artist_title}</p>
+                                </>
+                            ) : (
+                                <>
+                                    <p>Artist title: {item.artist_title}</p>
+                                    <p>Title: {item.title}</p>
+                                </>
+                            )}
+                            
                         </div>
                     </li>
                 ))}
